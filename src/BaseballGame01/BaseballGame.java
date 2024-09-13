@@ -31,78 +31,52 @@ public class BaseballGame {
             ball = random.nextInt(9) + 1;//0~9사이의 숫자 중 랜덤
             ranBall = Integer.toString(ball);//정수를 문자열로 바꿈
             answerBall = answerBall + ranBall;//정답 저장
-            setAnswerBall(answerBall);//정답 저장
+
         }
 
-        System.out.println(answerBall);
-        System.out.println("정답을 입력해주세요 : ");
-        Scanner sc = new Scanner(System.in);
-        String answerNum = sc.next();
-        setAnswerNum(answerNum);
+        setAnswerBall(answerBall);//정답 저장
 
-        /*String first = answerNum.substring(0, 1);
-        String second = answerNum.substring(1, 2);
-        String third = answerNum.substring(2, 3);
+        while(sCount!=3){
+            System.out.println(answerBall);
+            System.out.println("정답을 입력해주세요 : ");
+            Scanner sc = new Scanner(System.in);
+            String answerNum = sc.next();
+            setAnswerNum(answerNum);
 
-        String firstAnswer = (answerBall.substring(0, 1));
-        String secondAnswer = (answerBall.substring(1, 2));
-        String thirdAnswer = (answerBall.substring(2, 3));
 
-        for (int i=0; i<answerNum.length();i++) {
-            if (first.equals(firstAnswer)) {
-                countStrike();
-                continue;
-            } else if (second.equals(secondAnswer)) {
-                countStrike();
-                continue;
-            } else if (third.equals(thirdAnswer)) {
-                countStrike();
-                continue;
-            } else if (first.equals(secondAnswer) || first.equals(thirdAnswer)) {
-                countBall();
-                continue;
-            } else if (second.equals(firstAnswer) || second.equals(thirdAnswer)) {
-                countBall();
-                continue;
-            } else if (third.equals(firstAnswer) || third.equals(secondAnswer)) {
-                countBall();
-                continue;
+            for(int i = 0;i<answerNum.length();i++){
+                char user = answerNum.charAt(i);
+                char answer = answerBall.charAt(i);
+
+                if(user == answer){
+                    countStrike();
+                }else if(answerBall.contains(String.valueOf(user))){
+                    countBall();
+                }else{
+                    System.out.println("아웃!");
+                }
             }
-        }*/
 
-        for(int i = 0;i<answerNum.length();i++){
-            char user = answerNum.charAt(i);
-            char answer = answerBall.charAt(i);
+            display.displayStrikeBall(sCount, bCount);
 
-            if(user == answer){
-                countStrike();
-            }else if(answerBall.contains(String.valueOf(user))){
-                countBall();
+            if (sCount == 3) {
+                System.out.println("정답입니다");
+                answerBall = "";
+                display.clearStrikeBall();
+                break;
+            } else if (!validInput(answerNum)) {
+                System.out.println("올바른 세 자리 수를 입력하세요!");
+                //answerBall = "";
+                display.clearStrikeBall();
+            } else {
+                System.out.println("오답입니다");
+                //answerBall = "";
+                display.clearStrikeBall();
             }
-        }
 
-        display.displayStrikeBall(sCount, bCount);
-
-        if (sCount == 3) {
-            System.out.println("정답입니다");
-            answerBall = "";
-            display.clearStrikeBall();
-        } else {
-            System.out.println("오답입니다");
-            answerBall = "";
-            display.clearStrikeBall();
         }
 
 
-        /*if (answerNum.equals(answerBall)) {
-            System.out.println("정답입니다");
-            answerBall = "";
-            display.clearStrikeBall();
-        } else {
-            System.out.println("오답입니다");
-            answerBall = "";
-            display.clearStrikeBall();
-        }*/
 
     }
 
@@ -114,7 +88,8 @@ public class BaseballGame {
         this.answerNum = answerNum;
     }
 
-    public boolean validInput() {//모두 숫자이고 중복되지 않는 맞는 인풋인지 확인
+
+    public boolean validInput(String answerNum) {//모두 숫자이고 중복되지 않는 맞는 인풋인지 확인
         boolean flag = false;
         if (answerNum.length() != 3) {
             return flag;
