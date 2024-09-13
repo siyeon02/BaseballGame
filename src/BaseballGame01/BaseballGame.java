@@ -34,7 +34,7 @@ public class BaseballGame {
 
         setAnswerBall(answerBall);//정답 저장
 
-        boolean isOut = true;
+        boolean isOut = true;//out 판단
 
         Scanner sc = new Scanner(System.in);
         while(sCount!=3){
@@ -47,9 +47,9 @@ public class BaseballGame {
                 char user = answerNum.charAt(i);
                 char answer = answerBall.charAt(i);
 
-                if(user == answer){
+                if(user == answer){//스트라이크 조건 먼저
                     countStrike();
-                    isOut = false;
+                    isOut = false;//스트라이크면 아웃 아님
                 }
             }
 
@@ -58,13 +58,13 @@ public class BaseballGame {
                 char user = answerNum.charAt(i);
                 char answer = answerBall.charAt(i);
 
-                if(answerBall.contains(String.valueOf(user))&&answer != user){
+                if(answerBall.contains(String.valueOf(user))&&answer != user){//볼 조건은 스트라이크 조건 예외하고 생각
                     countBall();
-                    isOut = false;
+                    isOut = false;//볼이면 아웃 아님
                 }
             }
 
-            if(isOut){
+            if(isOut){//아웃
                 System.out.println("out!");
             }
 
