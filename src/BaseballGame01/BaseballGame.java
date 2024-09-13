@@ -38,7 +38,7 @@ public class BaseballGame {
 
         Scanner sc = new Scanner(System.in);
         while(sCount!=3){
-            System.out.println(answerBall);
+            //System.out.println(answerBall);
             System.out.println("정답을 입력해주세요 : ");
             String answerNum = sc.next();
             //setAnswerNum();
