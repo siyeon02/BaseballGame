@@ -34,25 +34,38 @@ public class BaseballGame {
 
         setAnswerBall(answerBall);//정답 저장
 
+        boolean isOut = true;
+
+        Scanner sc = new Scanner(System.in);
         while(sCount!=3){
-            //System.out.println(answerBall);
+            System.out.println(answerBall);
             System.out.println("정답을 입력해주세요 : ");
-            Scanner sc = new Scanner(System.in);
             String answerNum = sc.next();
-            setAnswerNum();
+            //setAnswerNum();
+
+            for(int i=0; i<answerNum.length();i++){
+                char user = answerNum.charAt(i);
+                char answer = answerBall.charAt(i);
+
+                if(user == answer){
+                    countStrike();
+                    isOut = false;
+                }
+            }
 
 
             for(int i = 0;i<answerNum.length();i++){
                 char user = answerNum.charAt(i);
                 char answer = answerBall.charAt(i);
 
-                if(user == answer){
-                    countStrike();
-                }else if(answerBall.contains(String.valueOf(user))){
+                if(answerBall.contains(String.valueOf(user))&&answer != user){
                     countBall();
-                }else{
-                    System.out.println("아웃!");
+                    isOut = false;
                 }
+            }
+
+            if(isOut){
+                System.out.println("out!");
             }
 
             display.displayStrikeBall(sCount, bCount);
@@ -64,11 +77,9 @@ public class BaseballGame {
                 break;
             } else if (!validInput(answerNum)) {
                 System.out.println("올바른 세 자리 수를 입력하세요!");
-                //answerBall = "";
                 display.clearStrikeBall();
             } else {
                 System.out.println("오답입니다");
-                //answerBall = "";
                 display.clearStrikeBall();
             }
 
