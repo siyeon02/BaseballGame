@@ -40,7 +40,7 @@ public class BaseballGame {
         String answerNum = sc.next();
         setAnswerNum(answerNum);
 
-        String first = answerNum.substring(0, 1);
+        /*String first = answerNum.substring(0, 1);
         String second = answerNum.substring(1, 2);
         String third = answerNum.substring(2, 3);
 
@@ -48,18 +48,35 @@ public class BaseballGame {
         String secondAnswer = (answerBall.substring(1, 2));
         String thirdAnswer = (answerBall.substring(2, 3));
 
-        for (int i = 0; i < answerNum.length(); i++) {
+        for (int i=0; i<answerNum.length();i++) {
             if (first.equals(firstAnswer)) {
                 countStrike();
+                continue;
             } else if (second.equals(secondAnswer)) {
                 countStrike();
+                continue;
             } else if (third.equals(thirdAnswer)) {
                 countStrike();
+                continue;
             } else if (first.equals(secondAnswer) || first.equals(thirdAnswer)) {
                 countBall();
+                continue;
             } else if (second.equals(firstAnswer) || second.equals(thirdAnswer)) {
                 countBall();
+                continue;
             } else if (third.equals(firstAnswer) || third.equals(secondAnswer)) {
+                countBall();
+                continue;
+            }
+        }*/
+
+        for(int i = 0;i<answerNum.length();i++){
+            char user = answerNum.charAt(i);
+            char answer = answerBall.charAt(i);
+
+            if(user == answer){
+                countStrike();
+            }else if(answerBall.contains(String.valueOf(user))){
                 countBall();
             }
         }
