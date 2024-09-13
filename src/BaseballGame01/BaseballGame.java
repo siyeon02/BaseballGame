@@ -7,13 +7,11 @@ import java.util.regex.Pattern;
 
 public class BaseballGame {
     private String answerBall = "";
-    private String answerNum;
     public boolean flag;
     public static int sCount = 0;
     public static int bCount = 0;
 
     public BaseballGame() {
-        this.answerNum = null;
         this.flag = true;
     }
 
@@ -37,11 +35,11 @@ public class BaseballGame {
         setAnswerBall(answerBall);//정답 저장
 
         while(sCount!=3){
-            System.out.println(answerBall);
+            //System.out.println(answerBall);
             System.out.println("정답을 입력해주세요 : ");
             Scanner sc = new Scanner(System.in);
             String answerNum = sc.next();
-            setAnswerNum(answerNum);
+            setAnswerNum();
 
 
             for(int i = 0;i<answerNum.length();i++){
@@ -84,8 +82,7 @@ public class BaseballGame {
         this.answerBall = answerBall;
     }
 
-    public void setAnswerNum(String answerNum) {//대답 저장
-        this.answerNum = answerNum;
+    public void setAnswerNum() {//대답 저장
     }
 
 
