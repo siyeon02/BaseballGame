@@ -1,5 +1,6 @@
 package BaseballGame01;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -12,6 +13,7 @@ public class BaseballGame {
     public static int bCount = 0;
     public static int count = 0;
     public static int trial = 0;
+    static final ArrayList<Integer> scores = new ArrayList<>();
 
     public BaseballGame() {
         this.flag = true;
@@ -68,10 +70,8 @@ public class BaseballGame {
                 }
             }
             catch(IndexOutOfBoundsException e){//사용자의 답 길이가 3 초과일 떄 예외발생
-                System.out.println(e.getMessage());
+                System.out.println("올바르지 않은 입력값입니다");
             }
-
-
 
 
             if(isOut){//아웃
@@ -94,8 +94,8 @@ public class BaseballGame {
             }
 
         }
-
-
+        scores.add(trial);
+        display.clearTrial();
 
     }
 
@@ -126,11 +126,11 @@ public class BaseballGame {
         ++bCount;
     }
 
-    public void countGame(){
+    public void countGame(){//게임 횟수 카운트
         ++count;
     }
 
-    public void countTrial(){
+    public void countTrial(){//시도 카운트
         ++trial;
     }
 
