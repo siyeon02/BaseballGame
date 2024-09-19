@@ -10,6 +10,8 @@ public class BaseballGame {
     public boolean flag;
     public static int sCount = 0;
     public static int bCount = 0;
+    public static int count = 0;
+    public static int trial = 0;
 
     public BaseballGame() {
         this.flag = true;
@@ -38,31 +40,39 @@ public class BaseballGame {
 
         Scanner sc = new Scanner(System.in);
         while(sCount!=3){
-            System.out.println(answerBall);
+            System.out.println(answerBall);//정답표시
             System.out.println("정답을 입력해주세요 : ");
             String answerNum = sc.next();
-            //setAnswerNum();
+            countTrial();
 
-            for(int i=0; i<answerNum.length();i++){
-                char user = answerNum.charAt(i);
-                char answer = answerBall.charAt(i);
+            try{
+                for(int i=0; i<answerNum.length();i++){
+                    char user = answerNum.charAt(i);
+                    char answer = answerBall.charAt(i);
 
-                if(user == answer){//스트라이크 조건 먼저
-                    countStrike();
-                    isOut = false;//스트라이크면 아웃 아님
+                    if(user == answer){//스트라이크 조건 먼저
+                        countStrike();
+                        isOut = false;//스트라이크면 아웃 아님
+                    }
                 }
+
+
+                for(int i = 0;i<answerNum.length();i++){
+                    char user = answerNum.charAt(i);
+                    char answer = answerBall.charAt(i);
+
+                    if(answerBall.contains(String.valueOf(user))&&answer != user){//볼 조건은 스트라이크 조건 예외하고 생각
+                        countBall();
+                        isOut = false;//볼이면 아웃 아님
+                    }
+                }
+            }
+            catch(IndexOutOfBoundsException e){//사용자의 답 길이가 3 초과일 떄 예외발생
+                System.out.println(e.getMessage());
             }
 
 
-            for(int i = 0;i<answerNum.length();i++){
-                char user = answerNum.charAt(i);
-                char answer = answerBall.charAt(i);
 
-                if(answerBall.contains(String.valueOf(user))&&answer != user){//볼 조건은 스트라이크 조건 예외하고 생각
-                    countBall();
-                    isOut = false;//볼이면 아웃 아님
-                }
-            }
 
             if(isOut){//아웃
                 System.out.println("out!");
@@ -115,4 +125,14 @@ public class BaseballGame {
     public void countBall() {//볼 횟수 카운트
         ++bCount;
     }
+
+    public void countGame(){
+        ++count;
+    }
+
+    public void countTrial(){
+        ++trial;
+    }
+
+
 }
