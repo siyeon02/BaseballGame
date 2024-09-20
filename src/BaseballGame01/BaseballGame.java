@@ -1,6 +1,7 @@
 package BaseballGame01;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -25,16 +26,26 @@ public class BaseballGame {
 
         BaseballGameDisplay display = new BaseballGameDisplay();
         Random random = new Random();
+        HashSet<Integer> uniqueNumber = new HashSet<>();
         int ball = 0;
         String ranBall = "";
         int letter = 3;
 
-        for (int i = 0; i < letter; i++) {//랜덤으로 정답 3자리 설정
+        while(uniqueNumber.size()<letter){
+            ball = random.nextInt(9)+1;
+            uniqueNumber.add(ball);
+        }
+
+        for(int num : uniqueNumber){
+            answerBall = answerBall + Integer.toString(num);
+        }
+
+        /*for (int i = 0; i < letter; i++) {//랜덤으로 정답 3자리 설정
             ball = random.nextInt(9) + 1;//0~9사이의 숫자 중 랜덤
             ranBall = Integer.toString(ball);//정수를 문자열로 바꿈
             answerBall = answerBall + ranBall;//정답 저장
 
-        }
+        }*/
 
         setAnswerBall(answerBall);//정답 저장
 
@@ -55,11 +66,14 @@ public class BaseballGame {
                     if(user == answer){//스트라이크 조건 먼저
                         countStrike();
                         isOut = false;//스트라이크면 아웃 아님
+                    }else if(answerBall.contains(String.valueOf(user))&&answer != user){//볼 조건은 스트라이크 조건 예외하고 생각
+                        countBall();
+                        isOut = false;//볼이면 아웃 아님
                     }
+
                 }
 
-
-                for(int i = 0;i<answerNum.length();i++){
+                /*for(int i = 0;i<answerNum.length();i++){
                     char user = answerNum.charAt(i);
                     char answer = answerBall.charAt(i);
 
@@ -67,7 +81,7 @@ public class BaseballGame {
                         countBall();
                         isOut = false;//볼이면 아웃 아님
                     }
-                }
+                }*/
             }
             catch(IndexOutOfBoundsException e){//사용자의 답 길이가 3 초과일 떄 예외발생
                 System.out.println("올바르지 않은 입력값입니다");
@@ -103,19 +117,24 @@ public class BaseballGame {
         this.answerBall = answerBall;
     }
 
-    public void setAnswerNum() {//대답 저장
-    }
-
 
     public boolean validInput(String answerNum) {//모두 숫자이고 중복되지 않는 맞는 인풋인지 확인
         boolean flag = false;
         if (answerNum.length() != 3) {
+            System.out.println("세 자리 수를 입력하세요");
             return flag;
-        } else if (!Pattern.matches("-?\\d+", answerNum)) {
+        } else if (!Pattern.matches("\\d+", answerNum)) {
+            System.out.println("문자가 아닌 숫자를 입력하세요.");
             return flag;
-        } else {
-            return !flag;
         }
+        HashSet<Character> set = new HashSet<>();
+        for(int i=0;i<answerNum.length();i++){//중복 입력 확인
+            if(!set.add(answerNum.charAt(i))){
+                System.out.println("중복되는 수 입니다. 다시 입력하세요.");
+                return flag;
+            }
+        }
+        return !flag;
     }
 
     public void countStrike() {//스트라이크 횟수 카운트
