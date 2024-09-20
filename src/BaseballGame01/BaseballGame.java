@@ -53,7 +53,7 @@ public class BaseballGame {
 
         Scanner sc = new Scanner(System.in);
         while(sCount!=3){
-            System.out.println(answerBall);//정답표시
+            //System.out.println(answerBall);//정답표시
             System.out.println("정답을 입력해주세요 : ");
             String answerNum = sc.next();
             countTrial();
