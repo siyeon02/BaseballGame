@@ -17,6 +17,8 @@ public class Main {
             if(text.equals("0")){
                 System.out.println("설정하고자 하는 자리수를 입력하세요");
                 baseballGame.makeLevel();
+                baseballGame.start();
+                baseballGame.countGame();
             } else if(text.equals("1")){
                 baseballGame.start();
                 baseballGame.countGame();
