@@ -15,6 +15,7 @@ public class BaseballGame {
     public static int count = 0;
     public static int trial = 0;
     static final ArrayList<Integer> scores = new ArrayList<>();
+    public static int level;
 
     public BaseballGame() {
         this.flag = true;
@@ -28,10 +29,9 @@ public class BaseballGame {
         Random random = new Random();
         HashSet<Integer> uniqueNumber = new HashSet<>();
         int ball = 0;
-        String ranBall = "";
         int letter = 3;
 
-        while(uniqueNumber.size()<letter){
+        while(uniqueNumber.size()<level){//레벨 수 따라 자리 수 설정
             ball = random.nextInt(9)+1;
             uniqueNumber.add(ball);
         }
@@ -94,7 +94,7 @@ public class BaseballGame {
 
             display.displayStrikeBall(sCount, bCount);
 
-            if (sCount == 3) {
+            if (sCount == level) {
                 System.out.println("정답입니다");
                 answerBall = "";
                 display.clearStrikeBall();
@@ -120,7 +120,7 @@ public class BaseballGame {
 
     public boolean validInput(String answerNum) {//모두 숫자이고 중복되지 않는 맞는 인풋인지 확인
         boolean flag = false;
-        if (answerNum.length() != 3) {
+        if (answerNum.length() != level) {//레벨 수에 따라 예외 처리
             System.out.println("세 자리 수를 입력하세요");
             return flag;
         } else if (!Pattern.matches("\\d+", answerNum)) {
@@ -153,5 +153,28 @@ public class BaseballGame {
         ++trial;
     }
 
+    public void makeLevel(){
+        Scanner sc = new Scanner(System.in);
+        level = sc.nextInt();
+        setLevel(level);
+        switch (level){
+            case 3 :
+                System.out.println("3자리 수 난이도로 설정되었습니다");
+                break;
+            case 4 :
+                System.out.println("4자리 수 난이도로 설정 되었습니다");
+                break;
+            case 5 :
+                System.out.println("5자리 수 난이도로 설정 되었습니다.");
+                break;
+            default:
+                System.out.println("3,4,5 중 선택하세요.");
+                break;
+        }
+    }
+
+    public void setLevel(int level){
+        BaseballGame.level = level;
+    }
 
 }
