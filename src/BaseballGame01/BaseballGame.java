@@ -40,12 +40,6 @@ public class BaseballGame {
             answerBall = answerBall + Integer.toString(num);
         }
 
-        /*for (int i = 0; i < letter; i++) {//랜덤으로 정답 3자리 설정
-            ball = random.nextInt(9) + 1;//0~9사이의 숫자 중 랜덤
-            ranBall = Integer.toString(ball);//정수를 문자열로 바꿈
-            answerBall = answerBall + ranBall;//정답 저장
-
-        }*/
 
         setAnswerBall(answerBall);//정답 저장
 
@@ -73,15 +67,6 @@ public class BaseballGame {
 
                 }
 
-                /*for(int i = 0;i<answerNum.length();i++){
-                    char user = answerNum.charAt(i);
-                    char answer = answerBall.charAt(i);
-
-                    if(answerBall.contains(String.valueOf(user))&&answer != user){//볼 조건은 스트라이크 조건 예외하고 생각
-                        countBall();
-                        isOut = false;//볼이면 아웃 아님
-                    }
-                }*/
             }
             catch(IndexOutOfBoundsException e){//사용자의 답 길이가 3 초과일 떄 예외발생
                 System.out.println("올바르지 않은 입력값입니다");
