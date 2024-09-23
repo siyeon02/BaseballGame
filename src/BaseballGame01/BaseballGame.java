@@ -6,16 +6,13 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import static BaseballGame01.Count.*;
+
 
 public class BaseballGame {
     private String answerBall = "";
     public boolean flag;
-    public static int sCount = 0;
-    public static int bCount = 0;
-    public static int count = 0;
-    public static int trial = 0;
     static final ArrayList<Integer> scores = new ArrayList<>();
-    public static int level;
 
     public BaseballGame() {
         this.flag = true;
@@ -26,12 +23,13 @@ public class BaseballGame {
         System.out.println("<게임을 시작합니다>");
 
         BaseballGameDisplay display = new BaseballGameDisplay();
+        Count count = new Count();
         Random random = new Random();
         HashSet<Integer> uniqueNumber = new HashSet<>();
         int ball = 0;
         int letter = 3;
 
-        while(uniqueNumber.size()<level){//레벨 수 따라 자리 수 설정
+        while(uniqueNumber.size()<Level.level){//레벨 수 따라 자리 수 설정
             ball = random.nextInt(9)+1;
             uniqueNumber.add(ball);
         }
@@ -47,10 +45,10 @@ public class BaseballGame {
 
         Scanner sc = new Scanner(System.in);
         while(sCount!=3){
-            //System.out.println(answerBall);//정답표시
+            System.out.println(answerBall);//정답표시
             System.out.println("정답을 입력해주세요 : ");
             String answerNum = sc.next();
-            countTrial();
+            Count.countTrial();
 
             try{
                 for(int i=0; i<answerNum.length();i++){
@@ -58,10 +56,10 @@ public class BaseballGame {
                     char answer = answerBall.charAt(i);
 
                     if(user == answer){//스트라이크 조건 먼저
-                        countStrike();
+                        count.countStrike();
                         isOut = false;//스트라이크면 아웃 아님
                     }else if(answerBall.contains(String.valueOf(user))&&answer != user){//볼 조건은 스트라이크 조건 예외하고 생각
-                        countBall();
+                        count.countBall();
                         isOut = false;//볼이면 아웃 아님
                     }
 
@@ -79,13 +77,13 @@ public class BaseballGame {
 
             display.displayStrikeBall(sCount, bCount);
 
-            if (sCount == level) {
+            if (sCount == Level.level) {
                 System.out.println("정답입니다");
                 answerBall = "";
                 display.clearStrikeBall();
                 break;
             } else if (!validInput(answerNum)) {
-                System.out.println("올바른 세 자리 수를 입력하세요!");
+                System.out.println("올바른 자리 수를 입력하세요!");
                 display.clearStrikeBall();
             } else {
                 System.out.println("오답입니다");
@@ -105,8 +103,8 @@ public class BaseballGame {
 
     public boolean validInput(String answerNum) {//모두 숫자이고 중복되지 않는 맞는 인풋인지 확인
         boolean flag = false;
-        if (answerNum.length() != level) {//레벨 수에 따라 예외 처리
-            System.out.println("세 자리 수를 입력하세요");
+        if (answerNum.length() != Level.level) {//레벨 수에 따라 예외 처리
+            System.out.println("올바른 자리 수를 입력하세요");
             return flag;
         } else if (!Pattern.matches("\\d+", answerNum)) {
             System.out.println("문자가 아닌 숫자를 입력하세요.");
@@ -122,44 +120,6 @@ public class BaseballGame {
         return !flag;
     }
 
-    public void countStrike() {//스트라이크 횟수 카운트
-        ++sCount;
-    }
 
-    public void countBall() {//볼 횟수 카운트
-        ++bCount;
-    }
-
-    public void countGame(){//게임 횟수 카운트
-        ++count;
-    }
-
-    public void countTrial(){//시도 카운트
-        ++trial;
-    }
-
-    public void makeLevel(){
-        Scanner sc = new Scanner(System.in);
-        level = sc.nextInt();
-        setLevel(level);
-        switch (level){
-            case 3 :
-                System.out.println("3자리 수 난이도로 설정되었습니다");
-                break;
-            case 4 :
-                System.out.println("4자리 수 난이도로 설정 되었습니다");
-                break;
-            case 5 :
-                System.out.println("5자리 수 난이도로 설정 되었습니다.");
-                break;
-            default:
-                System.out.println("3,4,5 중 선택하세요.");
-                break;
-        }
-    }
-
-    public void setLevel(int level){
-        BaseballGame.level = level;
-    }
 
 }

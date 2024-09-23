@@ -7,6 +7,8 @@ public class Main {
 
         BaseballGame baseballGame = new BaseballGame();
         BaseballGameDisplay baseballGameDisplay = new BaseballGameDisplay();
+        Level level = new Level();
+        Count count = new Count();
         String text = "";
         Scanner sc = new Scanner(System.in);
 
@@ -16,12 +18,12 @@ public class Main {
             text = sc.next();
             if(text.equals("0")){
                 System.out.println("설정하고자 하는 자리수를 입력하세요");
-                baseballGame.makeLevel();
+                level.makeLevel();
                 baseballGame.start();
-                baseballGame.countGame();
+                count.countGame();
             } else if(text.equals("1")){
                 baseballGame.start();
-                baseballGame.countGame();
+                count.countGame();
             } else if (text.equals("2")) {
                 System.out.println("게임 기록");
                 baseballGameDisplay.displayTry();
